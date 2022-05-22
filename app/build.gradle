@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+/*    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'*/
 }
 
 android {
@@ -55,8 +57,11 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
-    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
+    //broadcastmanager: notification
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    //implementation("io.coil-kt:coil:1.2.2")
 
+    //room: adding to favorites and  favorites writing to the database
     implementation 'androidx.room:room-runtime:2.3.0'
     kapt 'androidx.room:room-compiler:2.3.0'
     implementation 'androidx.room:room-ktx:2.3.0'

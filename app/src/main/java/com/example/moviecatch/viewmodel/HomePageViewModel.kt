@@ -21,7 +21,7 @@ class HomePageViewModel @Inject constructor(private val repository: RetrofitRepo
         return popularMovieList
     }
 
-    fun loadPopularLiveData(page: String) {
+    fun loadPopularData(page: String) {
         repository.getPopularMovies(page, popularMovieList)
     }
 }

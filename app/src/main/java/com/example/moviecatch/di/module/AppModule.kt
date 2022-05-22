@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
-    var baseUrl = ""
+    var baseUrl = "https://api.themoviedb.org/"
 
     @Provides
     @Singleton

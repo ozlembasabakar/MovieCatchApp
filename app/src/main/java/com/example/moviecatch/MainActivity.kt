@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatch.adapter.MovieAdapter
 import com.example.moviecatch.models.Movie
 import com.example.moviecatch.viewmodel.HomePageViewModel
-import retrofit2.Call
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var movieAdapter: MovieAdapter
@@ -26,14 +27,13 @@ class MainActivity : AppCompatActivity() {
         movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
 
-        viewModel.getObserverLiveData().observe(this, object: Observer<Movie> {
+        viewModel.getObserverLiveData().observe(this, object : Observer<Movie> {
             override fun onChanged(t: Movie?) {
-                if(t != null) movieAdapter.setList(t.results)
+                if (t != null) movieAdapter.setList(t.results)
             }
-
         })
 
-        viewModel.loadPopularLiveData("1")
+        viewModel.loadPopularData("1")
 
     }
 }

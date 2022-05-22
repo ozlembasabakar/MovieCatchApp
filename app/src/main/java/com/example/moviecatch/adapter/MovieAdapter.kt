@@ -9,22 +9,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatch.R
 import com.example.moviecatch.models.Result
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MyCustomHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
-    var liveData: List<Result>? = null
+    var liveData: List<Result>? = null;
 
     fun setList(liveData: List<Result>) {
         this.liveData = liveData
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCustomHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.popular_movie_item, parent, false)
-        return MyCustomHolder(view)
+        return MovieHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyCustomHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         holder.bind(liveData!![position])
     }
 
@@ -32,14 +32,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MyCustomHolder>() {
         return if (liveData == null) 0 else liveData!!.size
     }
 
-    class MyCustomHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class MovieHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         val txtTitle = view.findViewById<TextView>(R.id.title)
 
         fun bind(data: Result) {
             txtTitle.text = data.title
-
         }
-
     }
 }
