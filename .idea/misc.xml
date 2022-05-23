@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ozlem/AndroidStudioProjects/MovieCatch/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/ozlem/AndroidStudioProjects/MovieCatch/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/ozlem/AndroidStudioProjects/MovieCatch/app/src/main/res/layout/poopular_movie_item.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/ozlem/AndroidStudioProjects/MovieCatch/app/src/main/res/layout/popular_movie_item.xml" value="0.1334853090172239" />
+        <entry key="..\:/Users/ozlem/AndroidStudioProjects/MovieCatch/app/src/main/res/layout/popular_movie_item.xml" value="0.536" />
+        <entry key="..\:/Users/ozlem/AndroidStudioProjects/MovieCatch/app/src/main/res/layout/recent_movie_item.xml" value="0.1" />
+        <entry key="..\:/Users/ozlem/AndroidStudioProjects/MovieCatch/app/src/main/res/layout/recent_movir_item.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>

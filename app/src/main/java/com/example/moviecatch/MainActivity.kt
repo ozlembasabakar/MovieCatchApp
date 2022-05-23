@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatch.adapter.MovieAdapter
 import com.example.moviecatch.models.Movie
@@ -23,7 +24,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val lmHorizontal =
+            LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        val lmVertical =
+            LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = lmHorizontal
         movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
 

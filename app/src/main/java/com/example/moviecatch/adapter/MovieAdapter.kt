@@ -3,13 +3,15 @@ package com.example.moviecatch.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.moviecatch.R
 import com.example.moviecatch.models.Result
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
+class MovieAdapter(private val isFirstScreen: Boolean = true) :
+    RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
     var liveData: List<Result>? = null;
 
@@ -29,15 +31,28 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return if (liveData == null) 0 else liveData!!.size
+        return when {
+            liveData != null -> 0
+            isFirstScreen -> 4
+            else -> liveData!!.size
+        }
     }
+
 
     class MovieHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        val txtTitle = view.findViewById<TextView>(R.id.title)
+        val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
+        val txtGenre = view.findViewById<TextView>(R.id.txtGenre)
+        val posterView = view.findViewById<ImageView>(R.id.posterView)
 
         fun bind(data: Result) {
+
             txtTitle.text = data.title
+            txtGenre.text = "Genre 1, Genre 2, Genre 3"
+
+            Glide.with(posterView)
+                .load("https://image.tmdb.org/t/p/w342/" + data.poster_path)
+                .into(posterView)
         }
     }
 }
