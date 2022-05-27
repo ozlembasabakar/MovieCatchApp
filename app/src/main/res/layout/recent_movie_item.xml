@@ -25,20 +25,20 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtTitle"
+            android:id="@+id/recentTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="Title" />
 
         <TextView
-            android:id="@+id/txtGenre"
+            android:id="@+id/recentGenre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Genre1, Genre2, Genre3" />
 
         <TextView
-            android:id="@+id/txtReleasedDate"
+            android:id="@+id/recentReleasedDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -57,14 +57,12 @@
                 android:src="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/txtVoteAverage"
+                android:id="@+id/recentVoteAverage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="8 / 10" />
 
         </LinearLayout>
-
     </LinearLayout>
-
 </LinearLayout>

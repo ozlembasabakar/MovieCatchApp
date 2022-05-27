@@ -13,31 +13,12 @@ import com.example.moviecatch.models.Result
 class MovieAdapter(private val isFirstScreen: Boolean = true) :
     RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
-    var liveData: List<Result>? = null;
+    var liveData: List<Result>? = null
 
     fun setList(liveData: List<Result>) {
         this.liveData = liveData
         notifyDataSetChanged()
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.popular_movie_item, parent, false)
-        return MovieHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.bind(liveData!![position])
-    }
-
-    override fun getItemCount(): Int {
-        return when {
-            liveData != null -> 0
-            isFirstScreen -> 4
-            else -> liveData!!.size
-        }
-    }
-
 
     class MovieHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
@@ -51,8 +32,38 @@ class MovieAdapter(private val isFirstScreen: Boolean = true) :
             txtGenre.text = "Genre 1, Genre 2, Genre 3"
 
             Glide.with(posterView)
-                .load("https://image.tmdb.org/t/p/w342/" + data.poster_path)
+                .load("https://image.tmbd.org/t/p/w342/" + data.poster_path)
                 .into(posterView)
+
         }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapter.MovieHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.popular_movie_item, parent, false)
+        return MovieHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: MovieHolder, position: Int) {
+        holder.bind(liveData!![position])
+    }
+
+    override fun getItemCount(): Int {
+
+        if(liveData == null) {
+            return 0
+        } else if (isFirstScreen) {
+            return 4
+        } else {
+            return liveData!!.size
+        }
+
+
+        /*return when {
+            liveData != null -> 0
+            isFirstScreen -> 4
+            else -> liveData!!.size
+        }*/
+    }
+
 }

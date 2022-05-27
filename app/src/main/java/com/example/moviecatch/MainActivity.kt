@@ -36,11 +36,12 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getObserverLiveData().observe(this, object : Observer<Movie> {
             override fun onChanged(t: Movie?) {
-                if (t != null) movieAdapter.setList(t.results)
+                if (t != null) {
+                    movieAdapter.setList(t.results)
+                }
             }
         })
 
         viewModel.loadPopularData("1")
-
     }
 }
