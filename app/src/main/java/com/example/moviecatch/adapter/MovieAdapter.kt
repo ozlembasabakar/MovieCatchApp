@@ -32,7 +32,7 @@ class MovieAdapter(private val isFirstScreen: Boolean = true) :
             txtGenre.text = "Genre 1, Genre 2, Genre 3"
 
             Glide.with(posterView)
-                .load("https://image.tmbd.org/t/p/w342/" + data.poster_path)
+                .load("https://image.tmdb.org/t/p/w342/" + data.poster_path)
                 .into(posterView)
 
         }
