@@ -29,20 +29,17 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerViews()
 
-        viewModel.getObserverLiveData(true).observe(this, object : Observer<Movie> {
-            override fun onChanged(t: Movie?) {
-                if (t != null)
-                    movieAdapter.setList(t.results)
-            }
-        })
+        viewModel.getObserverLiveData(isPopular = true).observe(this
+        ) { t ->
+            if (t != null)
+                movieAdapter.setList(t.results)
+        }
 
-        viewModel.getObserverLiveData(false).observe(this, object : Observer<Movie> {
-            override fun onChanged(t: Movie?) {
-                if (t != null)
-                    recentMovieAdapter.setList(t.results)
-
-            }
-        })
+        viewModel.getObserverLiveData(false).observe(this
+        ) { t ->
+            if (t != null)
+                recentMovieAdapter.setList(t.results)
+        }
 
         fetchMovies()
 
