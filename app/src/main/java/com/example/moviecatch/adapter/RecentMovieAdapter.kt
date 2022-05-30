@@ -10,8 +10,8 @@ import com.bumptech.glide.Glide
 import com.example.moviecatch.R
 import com.example.moviecatch.models.Result
 
-class MovieAdapter(private val isFirstScreen: Boolean = true) :
-    RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
+class RecentMovieAdapter(private val isFirstScreen: Boolean = true) :
+    RecyclerView.Adapter<RecentMovieAdapter.MovieHolder>() {
 
     var liveData: List<Result>? = null
 
@@ -25,11 +25,15 @@ class MovieAdapter(private val isFirstScreen: Boolean = true) :
         val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
         val txtGenre = view.findViewById<TextView>(R.id.txtGenre)
         val posterView = view.findViewById<ImageView>(R.id.posterView)
+        val txtReleasedDate = view.findViewById<TextView>(R.id.txtReleasedDate)
+        val txtVoteAverage = view.findViewById<TextView>(R.id.txtVoteAverage)
 
         fun bind(data: Result) {
 
             txtTitle.text = data.title
             txtGenre.text = "Genre 1, Genre 2, Genre 3"
+            txtReleasedDate.text = data.relased_date
+            txtVoteAverage.text = data.vote_average.toString() + " / 10"
 
             Glide.with(posterView)
                 .load("https://image.tmdb.org/t/p/w342/" + data.poster_path)
@@ -38,13 +42,13 @@ class MovieAdapter(private val isFirstScreen: Boolean = true) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapter.MovieHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentMovieAdapter.MovieHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.popular_movie_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.recent_movie_item, parent, false)
         return MovieHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MovieAdapter.MovieHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecentMovieAdapter.MovieHolder, position: Int) {
         holder.bind(liveData!![position])
     }
 

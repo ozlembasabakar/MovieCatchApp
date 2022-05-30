@@ -12,16 +12,25 @@ class HomePageViewModel @Inject constructor(private val repository: RetrofitRepo
     ViewModel() {
 
     var popularMovieList: MutableLiveData<Movie>
+    var recentMovieList: MutableLiveData<Movie>
 
     init {
         popularMovieList = MutableLiveData()
+        recentMovieList = MutableLiveData()
     }
 
-    fun getObserverLiveData(): MutableLiveData<Movie> {
-        return popularMovieList
+    fun getObserverLiveData(isPopular: Boolean): MutableLiveData<Movie> {
+        if (isPopular)
+            return popularMovieList
+        else
+            return recentMovieList
     }
 
-    fun loadPopularData(page: String) {
-        repository.getPopularMovies(page, popularMovieList)
+
+    fun loadData(page: String, isPopular: Boolean) {
+        if (isPopular)
+            repository.getPopularMovies(page, popularMovieList)
+        else
+            repository.getRecentMovies(page, recentMovieList)
     }
 }
