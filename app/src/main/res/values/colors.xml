@@ -13,6 +13,7 @@
     <color name="iconColor">#F95861</color>
     <color name="actionColor">#AE000000</color>
     <color name="actionColorWhite">#AEFFFFFF</color>
+    <color name="genreViewColor"></color>
 
     <color name="lightDarkbg">#FFFFFF</color>
     <color name="txtColor">#333333</color>
