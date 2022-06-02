@@ -1,5 +1,6 @@
 package com.example.moviecatch.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,12 +29,13 @@ class RecentMovieAdapter(private val isFirstScreen: Boolean = true) :
         val txtReleasedDate = view.findViewById<TextView>(R.id.txtReleasedDate)
         val txtVoteAverage = view.findViewById<TextView>(R.id.txtVoteAverage)
 
+        @SuppressLint("SetTextI18n")
         fun bind(data: Result) {
 
             txtTitle.text = data.title
             txtGenre.text = "Genre 1, Genre 2, Genre 3"
-            txtReleasedDate.text = data.relased_date
-            txtVoteAverage.text = data.vote_average.toString() + " / 10"
+            txtReleasedDate.text = data.release_date
+            txtVoteAverage.text = "${data.vote_average} / 10"
 
             Glide.with(posterView)
                 .load("https://image.tmdb.org/t/p/w342/" + data.poster_path)

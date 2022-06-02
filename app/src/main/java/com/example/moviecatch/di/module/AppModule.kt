@@ -1,5 +1,9 @@
 package com.example.moviecatch.di.module
 
+import android.app.Application
+import android.content.Context
+import com.example.moviecatch.di.dao.GenreDao
+import com.example.moviecatch.di.dao.GenreDatabase
 import com.example.moviecatch.di.retrofit.RetrofitServiceInstance
 import dagger.Module
 import dagger.Provides
@@ -14,6 +18,20 @@ import javax.inject.Singleton
 class AppModule {
 
     var baseUrl = "https://api.themoviedb.org/"
+
+    @Provides
+    @Singleton
+    fun getAppDB(context: Application): GenreDatabase {
+        return GenreDatabase.getAppDB(context)
+    }
+
+
+    @Provides
+    @Singleton
+    fun getDao(appDB: GenreDatabase): GenreDao {
+        return appDB.getDAO()
+    }
+
 
     @Provides
     @Singleton
