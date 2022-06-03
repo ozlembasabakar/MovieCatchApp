@@ -1,12 +1,12 @@
 package com.example.moviecatch.ui.fragments.app_intro.pages
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -16,7 +16,9 @@ import com.example.moviecatch.di.dao.GenreData
 import com.example.moviecatch.util.StringHelper
 import com.example.moviecatch.viewmodel.GenreViewModel
 import com.example.moviecatch.viewmodel.HomePageViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FifthScreen : Fragment() {
 
     private var _binding: FragmentFifthBinding? = null
@@ -26,6 +28,7 @@ class FifthScreen : Fragment() {
     private lateinit var homePageViewModel: HomePageViewModel
 
     private var stringHelper: StringHelper? = null
+    private var genreList: MutableList<GenreData>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,11 +36,10 @@ class FifthScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFifthBinding.inflate(inflater, container, false)
-        val view = binding.root
 
         stringHelper = StringHelper()
 
-        val genreList: MutableList<GenreData> = mutableListOf()
+        genreList = mutableListOf()
         genreViewModel = ViewModelProvider(this).get(GenreViewModel::class.java)
         homePageViewModel = ViewModelProvider(this).get(HomePageViewModel::class.java)
         homePageViewModel.getObserverGenre().observe(viewLifecycleOwner, {
@@ -45,39 +47,18 @@ class FifthScreen : Fragment() {
                 for (item in it.genres) {
                     val tr_name = stringHelper!!.getTrItem(item.name)
                     val genre = GenreData(0, item.id, item.name, tr_name)
-                    genreList.add(genre)
+                    genreList!!.add(genre)
                 }
-                genreViewModel.addAllGenres(genreList)
+                genreViewModel.addAllGenres(genreList!!)
                 findNavController().navigate(R.id.action_appIntroFragment_to_mainFragment)
             }
         })
-
-/*
-        stringHelper = StringHelper()
-
-        val genreList: MutableList<GenreData> = mutableListOf()
-
-        genreViewModel = ViewModelProvider(this).get(GenreViewModel::class.java)
-        homePageViewModel = ViewModelProvider(this).get(HomePageViewModel::class.java)
-
-        homePageViewModel.getObserverGenre().observe(viewLifecycleOwner,{
-            if (it != null) {
-                for (item in it.genres) {
-                    val tr_name = stringHelper!!.getTrItem(item.name)
-                    val genre = GenreData(0, item.id, item.name, tr_name)
-                    genreList.add(genre)
-                }
-                genreViewModel.addAllGenres(genreList)
-                findNavController().navigate(R.id.action_appIntroFragment_to_mainFragment)
-            }
-        })
-*/
 
         binding.nextButton.setOnClickListener {
             homePageViewModel.loadGenreData()
         }
 
-        return view
+        return binding.root
     }
 
     override fun onResume() {
