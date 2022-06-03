@@ -3,7 +3,7 @@ package com.example.moviecatch.di.dao
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "genre")
+@Entity(tableName = "genres")
 data class GenreData(
     @PrimaryKey(autoGenerate = true)
     val id: Int,

@@ -32,9 +32,6 @@ class ThirdScreen: Fragment() {
         val prevButton = activity?.findViewById<RelativeLayout>(R.id.prevButton)
         val nextButton = activity?.findViewById<RelativeLayout>(R.id.nxtButton)
 
-        prevButton?.alpha = 1f
-        prevButton?.isClickable = true
-
         prevButton?.setOnClickListener {
             viewPager?.currentItem = 1
         }
