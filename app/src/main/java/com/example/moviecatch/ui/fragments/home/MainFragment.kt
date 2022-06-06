@@ -8,13 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.moviecatch.R
 import com.example.moviecatch.databinding.FragmentMainBinding
+import com.example.moviecatch.prefs.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,6 +28,8 @@ class MainFragment : Fragment() {
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        when {sessionManager.getIsFirstRun() -> sessionManager.setIsFirstRun(false) }
 
         setupTabBar()
 

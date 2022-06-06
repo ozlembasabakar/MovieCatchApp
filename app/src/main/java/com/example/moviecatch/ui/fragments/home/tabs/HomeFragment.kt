@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatch.adapter.MovieAdapter
 import com.example.moviecatch.adapter.RecentMovieAdapter
 import com.example.moviecatch.databinding.FragmentHomeBinding
+import com.example.moviecatch.di.dao.GenreData
+import com.example.moviecatch.viewmodel.GenreViewModel
 import com.example.moviecatch.viewmodel.HomePageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -20,11 +23,17 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private var genreList: List<GenreData>? = null
+
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var recentMovieAdapter: RecentMovieAdapter
 
     val viewModel by lazy {
         ViewModelProvider(this, defaultViewModelProviderFactory).get(HomePageViewModel::class.java)
+    }
+
+    val genreViewModel by lazy {
+        ViewModelProvider(this, defaultViewModelProviderFactory).get(GenreViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -37,19 +46,31 @@ class HomeFragment : Fragment() {
 
         initRecyclerViews()
 
-        viewModel.getObserverLiveData(isPopular = true).observe(viewLifecycleOwner
+        viewModel.getObserverLiveData(isPopular = true).observe(
+            viewLifecycleOwner
         ) { t ->
             if (t != null)
-                movieAdapter.setList(t.results)
+                movieAdapter.setLists(t.results, genreList!!)
         }
 
-        viewModel.getObserverLiveData(false).observe(viewLifecycleOwner
+        viewModel.getObserverLiveData(false).observe(
+            viewLifecycleOwner
         ) { t ->
-            if (t != null)
-                recentMovieAdapter.setList(t.results)
+            when {
+                t != null -> recentMovieAdapter.setLists(t.results, genreList!!)
+            }
         }
 
-        fetchMovies()
+        genreViewModel.getRecordsObserver().observe(viewLifecycleOwner, object : Observer<List<GenreData>>{
+            override fun onChanged(t: List<GenreData>?) {
+                when {
+                    t != null -> {
+                        genreList = t
+                        fetchMovies()
+                    }
+                }
+            }
+        })
 
         return view
     }

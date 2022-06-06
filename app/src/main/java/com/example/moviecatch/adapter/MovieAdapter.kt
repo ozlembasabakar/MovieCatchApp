@@ -8,15 +8,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecatch.R
+import com.example.moviecatch.di.dao.GenreData
 import com.example.moviecatch.models.Result
+import java.util.*
 
 class MovieAdapter(private val isFirstScreen: Boolean = true) :
     RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
     var liveData: List<Result>? = null
+    var genreList: List<GenreData>? = null
 
-    fun setList(liveData: List<Result>) {
+    fun setLists(liveData: List<Result>, genreList: List<GenreData>) {
         this.liveData = liveData
+        this.genreList = genreList
         notifyDataSetChanged()
     }
 
@@ -26,10 +30,28 @@ class MovieAdapter(private val isFirstScreen: Boolean = true) :
         val txtGenre = view.findViewById<TextView>(R.id.txtGenre)
         val posterView = view.findViewById<ImageView>(R.id.posterView)
 
-        fun bind(data: Result) {
+        fun bind(data: Result, genreList: List<GenreData>) {
 
             txtTitle.text = data.title
-            txtGenre.text = "Genre 1, Genre 2, Genre 3"
+            //txtGenre.text = "Genre 1, Genre 2, Genre 3"
+
+            val language = Locale.getDefault().language
+
+            var genres = ""
+            for (id in data.genre_ids) {
+                var result = genreList.find { x -> x.genre_id == id }
+
+                when {
+                    result != null -> {
+                        genres += when (language) {
+                            "tr" -> result!!.tr_name + ", "
+                            else -> result!!.en_name + ", "
+                        }
+                    }
+                }
+            }
+            genres = genres.substring(0, genres.length - 2)
+            txtGenre.text = genres
 
             Glide.with(posterView)
                 .load("https://image.tmdb.org/t/p/w342/" + data.poster_path)
@@ -45,14 +67,14 @@ class MovieAdapter(private val isFirstScreen: Boolean = true) :
     }
 
     override fun onBindViewHolder(holder: MovieAdapter.MovieHolder, position: Int) {
-        holder.bind(liveData!![position])
+        holder.bind(liveData!![position], genreList!!)
     }
 
     override fun getItemCount(): Int {
 
         return when {
             liveData == null -> 0
-            isFirstScreen -> 4
+            isFirstScreen -> liveData!!.size
             else -> liveData!!.size
         }
     }

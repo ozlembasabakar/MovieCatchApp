@@ -20,7 +20,7 @@ class GenreViewModel @Inject constructor(private val genreRepository: GenreRepos
         loadRecords()
     }
 
-    fun getRecordsObserver(viewLifecycleOwner: LifecycleOwner, observer: Observer<List<GenreData>>): MutableLiveData<List<GenreData>> {
+    fun getRecordsObserver(): MutableLiveData<List<GenreData>> {
         return allData
     }
 
@@ -36,6 +36,6 @@ class GenreViewModel @Inject constructor(private val genreRepository: GenreRepos
 
     fun loadRecords() {
         val list = genreRepository.readAllData
-        allData.postValue(list.value)
+        allData.postValue(list)
     }
 }
